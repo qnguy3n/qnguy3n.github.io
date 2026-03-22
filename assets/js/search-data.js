@@ -9,7 +9,14 @@ ninja.data = [{
     handler: () => {
       window.location.href = "/";
     },
-  },{id: "nav-blog",
+  },{id: "nav-news",
+          title: "news",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/news/";
+          },
+        },{id: "nav-blog",
           title: "blog",
           description: "",
           section: "Navigation",
@@ -34,15 +41,37 @@ ninja.data = [{
             window.location.href = "/blog/2025/connecting-the-dots-copy/";
           
         },
-      },{id: "post-history-of-medical-diagnosing-ai",
+      },{id: "post-note-on-fedavg",
         
-          title: "History of Medical Diagnosing AI",
+          title: "Note on FedAvg",
+        
+        description: "FedAvg vs. Centralized Gradient Descent",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/note-on-fedavg/";
+          
+        },
+      },{id: "post-a-practical-hands-on-introduction-to-brain-computer-interfaces",
+        
+          title: "A Practical, Hands-On Introduction to Brain-Computer Interfaces",
         
         description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2019/History-ai-medicine/";
+            window.location.href = "/blog/2019/intro-to-bci/";
+          
+        },
+      },{id: "post-earliest-medical-diagnosing-ais",
+        
+          title: "Earliest Medical Diagnosing AIs",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2019/earliest-ai-medicine/";
           
         },
       },{id: "books-the-godfather",
@@ -50,7 +79,10 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-present-my-first-major-finding-at-the-5th-annual-ioo-ecr-symposium",
+            },},{id: "news-guest-lecturer-for-brain-computer-interface-bm074iu-at-the-biomedical-engineering-department-international-university-vnu-hcmc-read-more-at-hands-on-bci-post",
+          title: 'Guest lecturer for Brain Computer Interface (BM074IU) at the Biomedical Engineering Department, International...',
+          description: "",
+          section: "News",},{id: "news-present-my-first-major-finding-at-the-5th-annual-ioo-ecr-symposium",
           title: 'Present my first major finding at the 5th Annual IoO ECR Symposium',
           description: "",
           section: "News",},{id: "news-joining-dr-sophia-wang-s-lab-optima-at-byers-eye-institute-stanford-university-as-a-visiting-student-researcher",
