@@ -7,9 +7,9 @@ tags: FedAvg, FL, Gradient Descent
 # categories: sample-posts
 related_posts: false
 ---
-When writing up the manuscript for this [paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919464), one question kept nagging me: Is *Federated Averaging* essentially just *Centralised Gradient Descent* in disguise? At the surface level, they look almost identical.
+When writing up the manuscript for this [paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919464), one question kept nagging me: **Is *Federated Averaging* essentially just *Centralised Gradient Descent* in disguise?** At the surface level, they look almost identical.
 
-In both settings, we are trying to minimise a global loss function $F(w)$ across $K$ distinct datasets, i.e. imagine training a unified clinical model across disparate sites (e.g. hospitals).
+In both settings, we are trying to minimise a global loss function $F(w)$ across $K$ distinct datasets, i.e. training a unified clinical model across disparate sites (e.g. hospitals).
 
 Let $p_k$ represent the data weighting for client $k$ (where the sum of all weights $\sum_{k=1}^K p_k=1$), and let $\nabla F_k(w_t)$ be the gradient of the loss evaluated on that client's local data at the current global weights $w_t$.
 
@@ -53,4 +53,4 @@ The crucial difference lies entirely in that final term. In CGD, the gradient $\
 
 Because neural network loss landscapes are highly non-linear, the sum of gradients taken at different points in space does not equal the gradient of the sum. As the clients take multiple steps, their parameter trajectories drift apart, optimising for their specific, non-IID local distributions. What works for a patient demographic in London begins to pull away from what works for a demographic in California. By the time the server averages them, it is averaging models that have wandered into completely different areas of the parameter space.
 
-It's quite interesting to realise that tf the data between the sites were perfectly IID, $w_{t,1}^k$ would likely be very similar across all clients, and FedAvg would closely approximate CGD even for $E > 1$. In real clinical informatics, however, this condition is almost never hold, which leads to FedAvg sometimes struggle to converge if the data is highly heterogeneous, which is why variants like [FedProx](https://arxiv.org/abs/1812.06127) (which adds a regularization term to keep local models close to the global model) exist.
+It's also quite interesting to realise that if the data between the sites were perfectly IID, $w_{t,1}^k$ would likely be very similar across all clients, and FedAvg would closely approximate CGD even for $E > 1$. In real clinical informatics, however, this condition almost never hold (we wouldn't need FL if it does in the first place), which leads to FedAvg sometimes struggle to converge if the data is highly heterogeneous, which is why variants like [FedProx](https://arxiv.org/abs/1812.06127) (which adds a regularization term to keep local models close to the global model) exist.
