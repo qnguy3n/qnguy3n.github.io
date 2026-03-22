@@ -30,6 +30,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "A growing collection of your cool projects.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
         },{id: "post-connecting-the-dots",
         
           title: "Connecting the dots",
@@ -79,11 +86,26 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-guest-lecturer-for-brain-computer-interface-bm074iu-at-the-biomedical-engineering-department-international-university-vnu-hcmc-read-more-at-hands-on-bci-post",
+            },},{id: "news-we-received-rohto-award-sun-award-and-saigon-innovation-hub-award-tech-planter-demo-day-in-vietnam-2019",
+          title: 'We received Rohto Award, Sun* Award, and Saigon Innovation Hub Award, TECH PLANTER...',
+          description: "",
+          section: "News",},{id: "news-present-our-work-on-multilabel-dataset-for-retinal-disease-at-the-4th-asia-pacific-tele-ophthalmology-society-aptos-symposium-2019-chennai-india-read-more",
+          title: 'Present our work on multilabel dataset for retinal disease at the 4th Asia...',
+          description: "",
+          section: "News",},{id: "news-guest-lecturer-for-brain-computer-interface-bm074iu-at-the-biomedical-engineering-department-international-university-vnu-hcmc-read-more-at-hands-on-bci-post",
           title: 'Guest lecturer for Brain Computer Interface (BM074IU) at the Biomedical Engineering Department, International...',
+          description: "",
+          section: "News",},{id: "news-i-will-teach-the-vietai-s-advanced-class-in-computer-vision-starting-on-aug-19th",
+          title: 'I will teach the VietAI’s Advanced Class In Computer Vision starting on Aug...',
+          description: "",
+          section: "News",},{id: "news-i-will-start-my-phd-program-in-the-ukri-ucl-centre-for-doctoral-training-in-ai-enabled-healthcare-systems-from-september-2021",
+          title: 'I will start my PhD program in the UKRI UCL Centre for Doctoral...',
           description: "",
           section: "News",},{id: "news-present-my-first-major-finding-at-the-5th-annual-ioo-ecr-symposium",
           title: 'Present my first major finding at the 5th Annual IoO ECR Symposium',
+          description: "",
+          section: "News",},{id: "news-i-presented-my-work-eyebert-at-the-5th-healthcare-text-analytics-conference-healtac-2022",
+          title: 'I presented my work, EyeBERT, at the 5th Healthcare Text Analytics Conference (HealTAC...',
           description: "",
           section: "News",},{id: "news-joining-dr-sophia-wang-s-lab-optima-at-byers-eye-institute-stanford-university-as-a-visiting-student-researcher",
           title: 'Joining Dr Sophia Wang’s lab Optima at Byers Eye Institute, Stanford University, as...',
@@ -97,11 +119,26 @@ ninja.data = [{
           section: "News",},{id: "news-conference-presented-at-arvo-2025-salt-lake-city-utah",
           title: '[Conference] Presented at ARVO 2025, Salt Lake city, Utah',
           description: "",
-          section: "News",},{id: "projects-project-1",
-          title: 'project 1',
-          description: "with background image",
+          section: "News",},{id: "projects-eyenote",
+          title: 'EyeNote',
+          description: "Clinical Information Extraction for Ophthalmology",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/1_project/";
+              window.location.href = "/projects/EyeNote/";
+            },},{id: "projects-fazseg",
+          title: 'FAZSEG',
+          description: "Automatic Foveal Avascular Zone Segmentation Using Hessian-Based Filter and U-Net Deep Learning Network",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/FAZSEG/";
+            },},{id: "projects-mudari",
+          title: 'MuDaRI',
+          description: "Multilabel Dataset of Retinal Images",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/MuDaRI/";
+            },},{id: "projects-reasoning-engine",
+          title: 'Reasoning Engine',
+          description: "Differential Diagnosis",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ReasoningEngine/";
             },},{id: "teachings-data-science-fundamentals",
           title: 'Data Science Fundamentals',
           description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
