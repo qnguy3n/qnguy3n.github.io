@@ -1,7 +1,7 @@
 ---
 layout: post
-title: History of Medical Diagnosing AI
-tags: tips gpu bugs
+title: Earliest Medical Diagnosing AIs
+tags: Medical AI, history
 ---
 
 **DENDRAL** system (1969), by Bruce Buchaman and Joshua Lederberg.

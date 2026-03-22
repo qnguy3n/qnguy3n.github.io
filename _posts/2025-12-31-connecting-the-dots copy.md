@@ -3,6 +3,7 @@ layout: post
 title: Connecting the dots
 date: 2025-12-31 
 # description: march & april, looking forward to summer
+hidden: true
 tags: formatting links
 categories: refection
 ---
