@@ -3,7 +3,7 @@ layout: post
 title: Note on FedAvg
 date: 2025-04-13
 description: FedAvg vs. Centralized Gradient Descent
-tags: FedAvg, FL, Gradient Descent
+tags: ML, FedAvg, FL, analysis, reflection
 # categories: sample-posts
 related_posts: false
 ---

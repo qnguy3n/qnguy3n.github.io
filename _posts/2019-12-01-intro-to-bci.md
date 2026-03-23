@@ -2,7 +2,7 @@
 layout: post
 title: "A Practical, Hands-On Introduction to Brain-Computer Interfaces"
 date: 2019-12-01
-tags: BCI EEG machine-learning signal-processing
+tags: BCI EEG ML signal-processing practice
 ---
 
 > This post is a companion to the `Brain Computer Interface (BM074IU)` course at the Biomedical Engineering Department, International University – Vietnam National University, HCMC. All experiments were conducted using a low-cost, portable EEG device.
