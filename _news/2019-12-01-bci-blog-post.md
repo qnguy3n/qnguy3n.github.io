@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Guest lecturer for Brain Computer Interface (BM074IU) at the Biomedical Engineering Department, International University - VNU-HCMC. Read more at [hands-on BCI post](/blog/2019/intro-to-bci/).
+Guest lecturer for **Brain Computer Interface** (BM074IU) module at the Biomedical Engineering Department, International University - VNU-HCMC. Read more at [hands-on BCI post](/blog/2019/intro-to-bci/).
