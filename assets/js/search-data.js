@@ -70,6 +70,28 @@ ninja.data = [{
             window.location.href = "/blog/2019/intro-to-bci/";
           
         },
+      },{id: "post-primer-level-set-methods-for-image-segmentation",
+        
+          title: "[Primer] Level Set Methods for Image Segmentation",
+        
+        description: "An introduction to the Level Set method and Distance Regularized Level Set Evolution (DRLSE) for active contour segmentation.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2019/primer-level-set/";
+          
+        },
+      },{id: "post-primer-hessian-filter-for-vessel-enhancement",
+        
+          title: "[Primer] Hessian Filter for Vessel Enhancement",
+        
+        description: "An introduction to Hessian-based filtering and the Frangi vesselness measure for tubular structure detection in medical images.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2019/primer-hessian-filter/";
+          
+        },
       },{id: "post-earliest-medical-diagnosing-ais",
         
           title: "Earliest Medical Diagnosing AIs",
