@@ -78,7 +78,7 @@ We pre-trained two variants of BERT on 5.8 million MEH clinical letters (approxi
 - **EyeBERT(scratch)**: trained from random weight initialization
 - **EyeBERT(PBM)**: continually pre-trained from PubMedBERT
 
-Both were evaluated against BERT, BioBERT, ClinicalBERT, DistilBERT, and PubMedBERT on two named entity recognition (NER) tasks: recognizing clinical phenotypes in eye-related PubMed case reports, and in MEH clinical letters.
+Both were evaluated against BERT {% cite Devlin2018 --file references %}, BioBERT {% cite Lee2019 --file references %}, ClinicalBERT {% cite Alsentzer2019 --file references %}, DistilBERT {% cite Sanh2019 --file references %}, and PubMedBERT {% cite Gu2020 --file references %} on two named entity recognition (NER) tasks: recognizing clinical phenotypes in eye-related PubMed case reports, and in MEH clinical letters.
 
 #### NER Results
 
@@ -169,6 +169,198 @@ A key part of the explanation lies in entity length. MEH clinical entities are s
   <figcaption><b>Figure 7:</b> NER performance of EyeBERT(scratch) and EyeBERT(PBM) on MEH clinical letters across pre-training steps (10K to 400K). EyeBERT(scratch) plateaus after ~50K steps; EyeBERT(PBM) achieves higher scores throughout with far less domain-specific pre-training.</figcaption>
 </figure>
 
-I suspect part of the issue is probably scale. EyeBERT was pre-trained on 700M words with a batch size of 8, compared to PubMedBERT's 3.2 billion words and batch size of 8,192, and BioBERT's 18 billion words. The sheer volume of biomedical text that foundation models are exposed to equips them with a richer understanding of complex morphology and clinical syntax than any single-institution corpus can provide, at least at the scale we were able to run. The low lexical diversity of the MEH corpus, as shown by its Heaps' law exponent of 0.625, compounds this: there simply is not enough new vocabulary for domain-specific pre-training to offer a decisive edge over a well-initialized foundation model.
+I suspect part of the issue is probably scale. EyeBERT was pre-trained on 700M words with a batch size of 8, compared to PubMedBERT's {% cite Gu2020 --file references %} 3.2 billion words and batch size of 8,192, and BioBERT's {% cite Lee2019 --file references %} 18 billion words. The sheer volume of biomedical text that foundation models are exposed to equips them with a richer understanding of complex morphology and clinical syntax than any single-institution corpus can provide, at least at the scale we were able to run. The low lexical diversity of the MEH corpus, as shown by its Heaps' law exponent of 0.625, compounds this: there simply is not enough new vocabulary for domain-specific pre-training to offer a decisive edge over a well-initialized foundation model.
 
+### Automatic Extraction of Visual Acuity
+Around mid-2023, several reasons led me to the decision of building an end-to-end Visual Acuity (VA) extraction pipeline. First, in discussions with clinicians at MEH about what information they most wanted extracted from clinical narratives, VA came up consistently as the top request. As shown in the previous section, despite being the single most important variable in ophthalmology, roughly a third of VA measurements cannot be found in structured data, and the further back in time one looks, the harder VA is to recover. Without an automated tool, longitudinal studies have had to rely on painstaking manual extraction.
+
+The second motivation is a gap in how clinical NLP research is typically reported. Studies usually evaluate NER and relation extraction (RE) in isolation on benchmark datasets, but in practice the two must be chained together to produce a usable extraction pipeline. How the models interact, and how errors in one stage propagate to the other, is rarely studied.
+
+#### Pipeline
+
+VABERT is a two-stage system. The first stage is an NER model that identifies three entity types in clinical text: VA values (e.g., "6/6", "LogMAR 0.3", "Hand Movement"), laterality (which eye), and correction type (aided, unaided, or pinhole). The second stage is a relation extraction (RE) model that links these entities, determining which VA value belongs to which eye and which correction type. Both stages use fine-tuned BERT {% cite Devlin2018 --file references %} with a BIO tagging scheme for NER and a marker-based approach for RE. Post-processing then standardizes all extracted values, including semi-qualitative descriptors like Counting Fingers (CF), Hand Movement (HM), and No Light Perception (NLP), to the LogMAR scale. The full pipeline is shown in [**Figure 8**](#fig-va-pipeline).
+
+<figure id="fig-va-pipeline" style="text-align:center">
+  <img src="/assets/img/EyeNote/va_complete_pipeline.png" alt="End-to-end VABERT pipeline" style="width:100%">
+  <figcaption><b>Figure 8:</b> End-to-end VABERT pipeline. Stage 1 (NER) identifies VA values, laterality, and correction type entities. Stage 2 (RE) links them using marker tokens. Post-processing standardizes all formats to LogMAR.</figcaption>
+</figure>
+
+#### Extraction Performance
+
+BioBERT achieved the best NER performance with a micro-F1 of **97.05%**, more than 35 percentage points above the regex baseline (61.2%). RE is harder: the best micro-F1 is **90.80%**, with the main error being positive relations misclassified as no-relation, particularly for VA-to-correction-type pairs underrepresented in training. Applied to the full 5.8 million letter corpus, VABERT identified VA in **2,425,222 letters**, recovering around 52,000 more records than a keyword search would have found.
+
+End-to-end accuracy was externally validated against a clinician-curated cohort of 836 letters from a genetic retinal disease study, reaching **82.78%** for right eye and **72.37%** for left eye. The gap between eyes reflects a sequential documentation bias, clinicians tend to record the right eye first, making left-eye values more susceptible to attribution errors when context is sparse.
+
+#### What Can You Do With 2.4 Million VA Records?
+
+Applying the pipeline to the full MEH corpus unlocks analyses that would be prohibitively slow to do manually.
+
+**Disease-level VA profiles.** Sorting 15 of the most common diagnoses by median extracted VA reveals an expected but now automatically quantifiable clinical gradient: post-operative states (macula-on retinal detachment repair, pseudophakia) cluster at the favorable end, while vitreous hemorrhage, AMD, diabetic retinopathy, and posterior subcapsular cataract sit at the worse end. [**Figure 9**](#fig-va-disease) shows the full breakdown by disease and correction type.
+
+<figure id="fig-va-disease" style="text-align:center">
+  <img src="/assets/img/EyeNote/va_sex_ct_disease.png" alt="VA distribution by disease and correction type" style="width:100%">
+  <figcaption><b>Figure 9:</b> Extracted VA distributions across the 15 most frequent diagnoses (sorted by median VA) and by correction type. Automated extraction recovers the expected clinical gradient from surgical successes to degenerative diseases.</figcaption>
+</figure>
+
+**Replicating a natural history study.** As a validation of research-grade utility, VABERT was used to replicate the VA trajectory from a published natural history study of RPGR-associated retinitis pigmentosa {% cite DeSilva2023 --file references %}. Without any manual curation, the extracted data reproduced the same age-related decline pattern reported in the original study. [**Figure 10**](#fig-va-desilva) shows the comparison. The slight divergence in patients over 40 reflects temporal noise from historical VA mentions in letters rather than true pipeline error, a known limitation of note-level extraction without explicit temporal reasoning.
+
+<figure id="fig-va-desilva" style="text-align:center">
+  <img src="/assets/img/EyeNote/va_de_silva_plot.png" alt="VABERT replication of RPGR natural history study" style="width:90%">
+  <figcaption><b>Figure 10:</b> Comparison of VA trajectories for RPGR-associated retinitis pigmentosa. Left: original De Silva et al. 2023 study with manual curation. Right: VABERT-extracted data from the same cohort. The pipeline replicates the published trajectory without manual annotation.</figcaption>
+</figure>
+
+**Genotype-specific visual phenotypes at scale.** The most compelling application is the Eye2Gene project, which uses extracted VA from 26,049 measurements across 2,570 patients with inherited retinal disease (IRD), spanning 36 disease genes. The heatmap in [**Figure 11**](#fig-va-e2g) reveals three biologically distinct phenotypic clusters that emerge cleanly from the extracted data alone.
+
+- **Vision-preserving genotypes** (CHM, EFEMP1, RHO): distributions concentrated at LogMAR ≤ 0.3, indicating retained central vision despite peripheral degeneration.
+- **Visual ceiling genotypes** (CNGA3, CNGB3, KCNV2, cone dystrophies and achromatopsia): tight, kurtotic distributions around LogMAR 0.7-1.0, reflecting a stationary cone dysfunction phenotype where patients have stable but permanently limited acuity.
+- **Severe progression genotypes** (BBS1, RP2, RDH12): right-skewed distributions extending toward HM and LP, with discrete vertical bands at LogMAR 2.28 and 2.7 marking the encoded semi-qualitative descriptors, indicating frequent progression beyond measurable Snellen range.
+
+These clusters align precisely with known clinical genetics, validating that the pipeline recovers biologically meaningful signal from free text at a scale that would take years to collect manually.
+
+<figure id="fig-va-e2g" style="text-align:center">
+  <img src="/assets/img/EyeNote/va_e2g_results.png" alt="Gene-specific VA distributions across 36 IRD genes" style="width:100%">
+  <figcaption><b>Figure 11:</b> Heatmap of best-corrected VA distributions for 36 inherited retinal disease genes (Eye2Gene project), extracted from 26,049 VA measurements across 2,570 patients. Genes are sorted by median VA (top: worst, bottom: best). Three phenotypic clusters are visible: vision-preserving, visual ceiling, and severe progression genotypes. Vertical bands at LogMAR 1.98, 2.28, and 2.7 correspond to CF, HM, and LP encodings.</figcaption>
+</figure>
+
+The practical upshot is straightforward: a pipeline that achieves ~83% end-to-end accuracy on a held-out cohort, when applied at the scale of millions of letters, produces a phenotypic database rich enough to replicate published natural history studies and recover genotype-specific disease signatures, all without a single manual annotation beyond the initial model training.
+
+### Federated Learning or LLM?
+
+In late 2024, I had the opportunity to collaborate with Dr. Sophia Wang at the Byers Eye Institute, where I gained access to a VA dataset from Stanford, similar in spirit to the MEH corpus but distinctly different in letter length, documentation style, clinical complexity, and patient population. Access to two such distinct datasets from separate clinical settings on separate continents is rare, and since Dr. Sophia's lab had already done prior work on VA extraction {% cite Bernstein2024 --file references %}, this felt like a natural moment to ask a harder question: can we find a single model that generalises well across both sites?
+
+The key constraint is that the two datasets cannot be pooled in one place due to data privacy requirements. Two approaches present themselves: federated learning {% cite McMahan2017 --file references %}, where a BERT model is trained jointly using data from both sites without ever centralising it, or a large language model pre-trained on a massive and diverse corpus, which may generalise across clinical settings without any site-specific adaptation. The full study has been published.
+
+#### Datasets
+
+The Stanford corpus consists of 319,756 clinical notes from ~90,000 patients, with VA annotations generated in a weakly supervised manner from semi-structured EHR fields. The MEH corpus is far smaller, 254 training and 98 test notes, with all VA entities manually annotated. The two corpora look nothing alike: Stanford notes are produced using EHR-formatting templates and follow a machine-readable, highly consistent layout, while MEH notes are written entirely by clinicians in natural free text, with implicit conventions that require clinical knowledge to parse correctly (for example, the first VA appearing in the note is assumed to be the right eye). [**Figure 12**](#fig-fl-data) illustrates this contrast.
+
+<figure id="fig-fl-data" style="text-align:center">
+  <img src="/assets/img/EyeNote/va_fl_data_example.png" alt="VA note examples from Stanford and MEH" style="width:100%">
+  <figcaption><b>Figure 12:</b> Examples of VA entities from (A) Stanford Byers Eye Institute and (B) Moorfields Eye Hospital. Stanford notes, generated using EHR templates, follow a consistent structured format. MEH notes, written by clinicians, are natural free text with implicit clinical conventions.</figcaption>
+</figure>
+
+#### Results
+
+[**Table 3**](#tab-fl-results) summarizes the micro-averaged strict F1 across all models and evaluation settings; [**Figure 13**](#fig-fl-f1) traces the F1 trajectory across 500 federated communication rounds.
+
+<figure id="tab-fl-results">
+<table style="border-collapse:collapse; width:80%; margin-left:auto; margin-right:auto">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th>Model</th>
+      <th style="text-align:center">Stanford<br>F1<sub>strict</sub></th>
+      <th style="text-align:center">MEH<br>F1<sub>strict</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Baseline (home site)</td><td style="text-align:center"><b>0.943</b></td><td style="text-align:center">0.427</td></tr>
+    <tr><td>Cross-evaluation (other site)</td><td style="text-align:center">0.204</td><td style="text-align:center">0.502</td></tr>
+    <tr><td>FedAvg</td><td style="text-align:center">0.942</td><td style="text-align:center">0.544</td></tr>
+    <tr><td>STWT</td><td style="text-align:center">0.940</td><td style="text-align:center">0.519</td></tr>
+    <tr><td>LLaMA-3-70B {% cite Dubey2024 --file references %}</td><td style="text-align:center">0.375</td><td style="text-align:center"><b>0.660</b></td></tr>
+    <tr style="border-bottom:2px solid"><td>Mixtral-8x7B {% cite Jiang2024 --file references %}</td><td style="text-align:center">0.288</td><td style="text-align:center">0.423</td></tr>
+  </tbody>
+</table>
+<figcaption style="text-align:center; margin-top:0.5em"><b>Table 3:</b> Micro-averaged strict F1 scores for VA NER across models and evaluation settings. Baseline (home site): model trained and tested on the same institution. Cross-evaluation: model trained at one site, tested at the other.</figcaption>
+</figure>
+
+**The generalization gap is real and severe.** Cross-site evaluation reveals a dramatic performance collapse: the Stanford-trained model dropped from F1_strict=0.943 at home to 0.502 on MEH. The reverse was even worse, reaching only 0.204 on Stanford, because MEH's implicit free-text conventions are largely illegible to a model trained exclusively on templated notes.
+
+**Federated learning bridges the gap without touching the data.** Both FL algorithms substantially recovered this loss. FedAvg reached F1_strict=0.544 on MEH while maintaining 0.942 on Stanford. STWT achieved comparable strict scores (0.519 MEH, 0.940 Stanford) and outperformed FedAvg on partial matching (0.844 vs. 0.814 on MEH), with markedly more stable convergence throughout training, as seen in [**Figure 13**](#fig-fl-f1). The noisy F1 curve of FedAvg across rounds contrasts sharply with STWT's smooth progression, a meaningful practical advantage when you cannot afford to run for hundreds of rounds to find the best checkpoint.
+
+**LLMs are note-structure dependent.** LLaMA-3-70B {% cite Dubey2024 --file references %} excelled on MEH's natural free text (F1_strict=0.660), easily outperforming all BERT-based models with just five in-context examples. But it collapsed on Stanford's templated notes (F1_strict=0.375). Mixtral-8x7B {% cite Jiang2024 --file references %} fared similarly. This reveals a nuanced point: LLMs handle linguistic variation and implicit clinical conventions well, but the rigid machine-generated patterns in templated notes are precisely what discriminative BERT models learn to exploit. Neither paradigm dominates both environments.
+
+<figure id="fig-fl-f1" style="text-align:center">
+  <img src="/assets/img/EyeNote/va_fl_results_f1.png" alt="F1 curves across federated communication rounds" style="width:100%">
+  <figcaption><b>Figure 13:</b> Micro-F1 scores over 500 communication rounds for Stanford (left) and MEH (right). Top row: strict evaluation; bottom row: partial evaluation. STWT (blue) converges smoothly and consistently outperforms FedAvg (orange) on MEH. The dashed purple line marks LLaMA-3-70B performance for reference.</figcaption>
+</figure>
+
+The takeaway is clear: when clinical note styles differ substantially across institutions, no single model generalises for free. FL, particularly STWT, offers a principled path to cross-institutional performance without centralising sensitive data, and is most valuable precisely in the settings where naive cross-evaluation fails the hardest.
+
+### Toward scalable and general-purpose ophthalmic information extraction
+
+The previous chapters demonstrated that fine-tuned BERT models can achieve strong performance on specific, well-defined extraction tasks, but each one required a custom annotated dataset. This is a bottleneck. In practice, clinical teams generate dozens of different extraction requests, each with its own schema, subspecialty, and note style. Annotating a training set for every new task is not feasible. Generative large language models offer a different path: define the task in a prompt, and the model extracts the information directly, with no fine-tuning required. The question is whether this actually works in ophthalmology, across tasks of varying complexity and clinical domains.
+
+To answer this, I assembled the **Ophthalmic Language Understanding Benchmark (OLUB)**, a heterogeneous corpus of ten real-world datasets collected through collaborations with clinicians at MEH and the Byers Eye Institute between January 2024 and September 2025. Each dataset originated from a genuine clinical audit or research project, covering subspecialties including glaucoma, strabismus, cataract, cornea, genetics, and uveitis. The tasks span two types: **patient identification** (given a patient's aggregated notes, determine whether they meet a clinical criterion) and **clinical variable extraction** (extract structured data such as VA measurements, laterality, or treatment outcomes from individual notes). Document lengths vary by more than two orders of magnitude, from short single-visit notes (median ~130 tokens) to longitudinally aggregated patient records exceeding 88,000 words.
+
+#### Models and setup
+
+Seven models were evaluated across a parameter range from 8B to 70B:
+
+- **Generalist models**: LLaMA-3.1-8B {% cite Dubey2024 --file references %}, Gemma-2-9B/27B {% cite GemmaTeam2024 --file references %}, GPT-OSS-20B {% cite OpenAI2025 --file references %}, Mixtral-8x7B {% cite Jiang2024 --file references %}, LLaMA-3.3-70B {% cite Dubey2024 --file references %}
+- **Ophthalmology-specialized**: LEME-DPO 70B {% cite Gilson2024 --file references %}, trained on ~211K ophthalmology-specific instruction samples and aligned using Direct Preference Optimization
+
+All models ran locally on hospital-grade hardware (8×NVIDIA P100 at MEH; 2×A100 at Stanford) using 4-bit quantization. Prompts followed a standardized three-part structure: task definition, optional notation for clinical abbreviations, and a strict JSON output specification enforced by an automatic retry mechanism (up to 5 attempts per sample).
+
+#### Results
+
+[**Table 4**](#tab-llm-perf) summarizes performance across all models and datasets.
+
+<figure id="tab-llm-perf">
+<table style="border-collapse:collapse; width:100%">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th>#</th>
+      <th>Dataset</th>
+      <th style="text-align:center">8B</th>
+      <th style="text-align:center">Gemma<br>9B</th>
+      <th style="text-align:center"><b>GPT-OSS<br>20B</b></th>
+      <th style="text-align:center">Gemma<br>27B</th>
+      <th style="text-align:center">Mixtral<br>8x7B</th>
+      <th style="text-align:center">LLaMA<br>70B</th>
+      <th style="text-align:center">LEME<br>70B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>GDD-Botox</td><td style="text-align:center">0.061</td><td style="text-align:center">0.780</td><td style="text-align:center"><b>0.922</b></td><td style="text-align:center">0.720</td><td style="text-align:center">0.711</td><td style="text-align:center">0.909</td><td style="text-align:center">0.770</td></tr>
+    <tr><td>2</td><td>IR-Botox</td><td style="text-align:center">0.022</td><td style="text-align:center">0.680</td><td style="text-align:center"><b>0.912</b></td><td style="text-align:center">0.696</td><td style="text-align:center">0.212</td><td style="text-align:center">0.622</td><td style="text-align:center">0.338</td></tr>
+    <tr><td>3</td><td>Cong. Esotropia</td><td style="text-align:center">0.984</td><td style="text-align:center">0.423</td><td style="text-align:center"><b>0.989</b></td><td style="text-align:center">0.027</td><td style="text-align:center">0.907</td><td style="text-align:center">0.986</td><td style="text-align:center">0.995</td></tr>
+    <tr><td>4</td><td>YAG Cap</td><td style="text-align:center">0.711</td><td style="text-align:center">0.678</td><td style="text-align:center">0.829</td><td style="text-align:center">0.815</td><td style="text-align:center">0.738</td><td style="text-align:center"><b>0.868</b></td><td style="text-align:center">0.843</td></tr>
+    <tr><td>5</td><td>RP-CMO</td><td style="text-align:center">0.630</td><td style="text-align:center"><b>0.770</b></td><td style="text-align:center">0.660</td><td style="text-align:center">0.650</td><td style="text-align:center">0.710</td><td style="text-align:center">0.630</td><td style="text-align:center">0.640</td></tr>
+    <tr><td>6</td><td>PED-Postop</td><td style="text-align:center">0.721</td><td style="text-align:center">0.860</td><td style="text-align:center">0.870</td><td style="text-align:center">0.873</td><td style="text-align:center">0.851</td><td style="text-align:center"><b>0.893</b></td><td style="text-align:center">0.845</td></tr>
+    <tr><td>7</td><td>VA-RPGR</td><td style="text-align:center">0.900</td><td style="text-align:center">0.951</td><td style="text-align:center">0.968</td><td style="text-align:center">0.939</td><td style="text-align:center">0.924</td><td style="text-align:center"><b>0.970</b></td><td style="text-align:center">0.950</td></tr>
+    <tr><td>8</td><td>FECD-SRGR</td><td style="text-align:center">0.810</td><td style="text-align:center">0.815</td><td style="text-align:center">0.807</td><td style="text-align:center">0.818</td><td style="text-align:center">0.282</td><td style="text-align:center"><b>0.824</b></td><td style="text-align:center">0.750</td></tr>
+    <tr><td>9</td><td>Byers-VA</td><td style="text-align:center">0.634</td><td style="text-align:center">0.537</td><td style="text-align:center"><b>0.867</b></td><td style="text-align:center">0.655</td><td style="text-align:center">0.678</td><td style="text-align:center">0.757</td><td style="text-align:center">0.711</td></tr>
+    <tr><td>10</td><td>Byers-CAAMPUS</td><td style="text-align:center">0.449</td><td style="text-align:center">0.412</td><td style="text-align:center"><b>0.626</b></td><td style="text-align:center">0.559</td><td style="text-align:center">0.535</td><td style="text-align:center">0.596</td><td style="text-align:center">0.451</td></tr>
+    <tr style="border-top:1px solid; border-bottom:2px solid; font-weight:bold"><td></td><td>Mean</td><td style="text-align:center">0.592</td><td style="text-align:center">0.691</td><td style="text-align:center"><b>0.845</b></td><td style="text-align:center">0.675</td><td style="text-align:center">0.655</td><td style="text-align:center">0.806</td><td style="text-align:center">0.729</td></tr>
+  </tbody>
+</table>
+<figcaption style="text-align:center; margin-top:0.5em"><b>Table 4:</b> LLM performance across the 10 OLUB datasets. Best score per row in bold. 8B = LLaMA-3.1-8B; Gemma 9B/27B; GPT-OSS 20B; Mixtral 8x7B; LLaMA 70B = LLaMA-3.3-70B; LEME 70B = LEME-DPO.</figcaption>
+</figure>
+
+**Parameter count alone does not determine performance.** GPT-OSS-20B achieved the highest mean score (0.845) despite being less than a third of the size of the 70B models. It ranked first on 6 of 10 tasks and was the only model to break 0.9 on three different datasets. LLaMA-3.3-70B came second (0.806), while LEME-DPO, the ophthalmology-specialized 70B model, scored only 0.729, below even Gemma-2-9B (0.691). Alignment quality and instruction-following ability, not domain-specific pretraining, appear to be the dominant factors for structured extraction tasks.
+
+**Task difficulty matters more than model size.** Simple patient identification tasks with short, well-structured notes (GDD-Botox, IR-Botox, Congenital Esotropia) were easy for capable models and near-impossible for small or poorly aligned ones. Long aggregated documents (Byers-CAAMPUS: median 8,282 tokens, max 88,858) degraded all models, including GPT-OSS-20B whose best score there was only 0.626. This ceiling is a fundamental challenge for LLMs on longitudinal clinical records.
+
+#### Performance vs. efficiency
+
+[**Figure 14**](#fig-llm-time) shows the clear performance-efficiency trade-off. Smaller models are fast but mediocre. The largest models improve accuracy but at rapidly increasing latency, with LLaMA-3.3-70B averaging 17.03 seconds per data point compared to 4.14 seconds for GPT-OSS-20B, for a gain of only 0.039 in mean score. For any pipeline processing thousands of clinical letters, this cost is rarely justifiable.
+
+<figure id="fig-llm-time" style="text-align:center">
+  <img src="/assets/img/EyeNote/llm/results_model_performance_vs_time.png" alt="Performance vs processing time for LLMs" style="width:75%">
+  <figcaption><b>Figure 14:</b> Mean evaluation score versus mean adjusted processing time per data point for each model. GPT-OSS-20B occupies the favorable middle ground: highest performance with moderate latency. The largest models show diminishing returns.</figcaption>
+</figure>
+
+#### Reliability of structured output
+
+Beyond accuracy and speed, a critical practical concern is whether models consistently produce parseable JSON, a prerequisite for automated downstream processing. As shown in [**Figure 15**](#fig-llm-reliability), first-attempt success rates vary widely and do not correlate with model size. GPT-OSS-20B achieved 99.17% valid JSON on the first attempt; Gemma-2-27B reached 99.04%. In contrast, LEME-DPO produced valid JSON on the first attempt only 76.66% of the time, the worst of all models, despite being domain-specialized. Mixtral-8x7B (83.87%) and LLaMA-3.1-8B (87.55%) also showed high failure rates. Domain-specific fine-tuning appears to trade structural discipline for semantic richness, a trade-off that is expensive in any automated pipeline.
+
+<figure id="fig-llm-reliability" style="text-align:center">
+  <img src="/assets/img/EyeNote/llm/results_attempts_distribution.png" alt="Distribution of output parsing attempts by model and project" style="width:100%">
+  <figcaption><b>Figure 15:</b> Percentage distribution of output-parsing attempts (1 to 5) required to produce valid JSON, stratified by project and model. GPT-OSS-20B and Gemma-2-27B are near-ceiling; LEME-DPO and Mixtral show the most multi-attempt failures.</figcaption>
+</figure>
+
+The overall picture from this work is encouraging but realistic. LLMs, particularly well-aligned intermediate-scale models like GPT-OSS-20B, can meaningfully support real clinical extraction workflows in ophthalmology without any task-specific annotation, making them genuinely useful for new, low-resource extraction tasks. However, long aggregated documents remain a hard problem, reliability varies substantially across models in ways that are not predictable from scale, and inference latency at the 70B tier remains a bottleneck for large-scale deployment. The most viable path forward is probably a hybrid one: use LLMs to generate training data or handle rare tasks, and reserve encoder-based models for high-throughput, well-defined extractions where fine-tuning is feasible.
+
+### Conclusion
+
+Looking back across these chapters, a few threads run through everything.
+
+The first is about data. A third of all visual acuity measurements at the largest specialist eye hospital in the UK exist only in free text, inaccessible to any structured query. For rarer variables, older records, or subspecialties that have not yet adopted templated data entry, the fraction locked in narrative is higher still. The premise of this work is simple: clinical NLP can unlock that data at scale, and the payoff, in terms of retrospective research, cohort discovery, and phenotypic characterization, is large enough to justify the effort.
+
+The second thread is about what kind of model to use, and when. BERT-based models, when fine-tuned on even modest amounts of annotated data, are highly competitive and offer speed, reliability, and interpretability that matter in deployment. Pre-training on domain-specific text (EyeBERT) did not consistently outperform strong foundation models like PubMedBERT, suggesting that the volume and diversity of pre-training data matter more than domain overlap alone. For the VA extraction task specifically, a fine-tuned BioBERT model achieved 97% NER micro-F1 and recovered 2.4 million VA records from 5.8 million clinical letters, enabling analyses that would have taken years to replicate manually. For generalization across institutions with different documentation styles, federated learning, particularly STWT, proved a practical and privacy-preserving path, recovering most of the performance lost in naive cross-site transfer without pooling a single record.
+
+The third thread is about the emerging role of LLMs. For new extraction tasks where annotation is expensive, generative LLMs with prompt-based interfaces offer genuine value: no retraining, no annotated dataset, and reasonable accuracy across diverse clinical tasks. The OLUB results show that well-aligned models at the 20B scale can match or exceed specialized 70B models on structured extraction, and that the bottleneck is usually task formulation and document length, not model size. At the same time, the failure modes, unreliable JSON output, degradation on long aggregated records, high inference cost, mean that LLMs are better positioned as a complement to rather than a replacement for encoder-based extraction at scale.
+
+The broader ambition behind all of this is a clinical NLP infrastructure for ophthalmology that can be deployed routinely: pulling structured data from letters as they are written, enriching electronic health records retrospectively, and making large-scale phenotypic research from routine care data a realistic proposition rather than a heroic manual effort. Each chapter here is a step in that direction.
 
