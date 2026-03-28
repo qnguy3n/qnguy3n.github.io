@@ -158,7 +158,7 @@ ninja.data = [{
               window.location.href = "/projects/MuDaRI/";
             },},{id: "projects-reasoning-engine",
           title: 'Reasoning Engine',
-          description: "Differential Diagnosis",
+          description: "An AI-Assisted Differential Diagnosis System for Ophthalmology",
           section: "Projects",handler: () => {
               window.location.href = "/projects/ReasoningEngine/";
             },},{id: "teachings-data-science-fundamentals",
