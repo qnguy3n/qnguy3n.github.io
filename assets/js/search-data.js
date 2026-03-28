@@ -153,7 +153,7 @@ ninja.data = [{
               window.location.href = "/projects/FAZSEG/";
             },},{id: "projects-mudari",
           title: 'MuDaRI',
-          description: "Multilabel Dataset of Retinal Images",
+          description: "Multilabel Dataset of Retinal Images for Detection of Multiple Ocular Diseases",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MuDaRI/";
             },},{id: "projects-reasoning-engine",
