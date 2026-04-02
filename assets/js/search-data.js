@@ -188,6 +188,11 @@ ninja.data = [{
           description: "An AI-Assisted Differential Diagnosis System for Ophthalmology",
           section: "Projects",handler: () => {
               window.location.href = "/projects/ReasoningEngine/";
+            },},{id: "projects-weeg",
+          title: 'WEEG',
+          description: "A portable, wireless 8-channel EEG system with SSVEP-based BCI game and real-time signal processing software",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/WEEG/";
             },},{id: "teachings-data-science-fundamentals",
           title: 'Data Science Fundamentals',
           description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
