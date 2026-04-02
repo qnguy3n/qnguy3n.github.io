@@ -188,8 +188,8 @@ ninja.data = [{
           description: "An AI-Assisted Differential Diagnosis System for Ophthalmology",
           section: "Projects",handler: () => {
               window.location.href = "/projects/ReasoningEngine/";
-            },},{id: "projects-weeg",
-          title: 'WEEG',
+            },},{id: "projects-weeg-ssvep-game",
+          title: 'WEEG SSVEP game',
           description: "A portable, wireless 8-channel EEG system with SSVEP-based BCI game and real-time signal processing software",
           section: "Projects",handler: () => {
               window.location.href = "/projects/WEEG/";
