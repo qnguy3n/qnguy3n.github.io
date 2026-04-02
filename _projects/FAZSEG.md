@@ -39,6 +39,13 @@ Two independent clinical datasets were used in this study. The primary dataset w
 
 The two datasets were split as follows: 184 images from the JC dataset for training, all 30 Duke images for validation, and the remaining 46 JC images held out as the test set. The Duke dataset was designated as the validation set because this configuration consistently yielded superior model performance — as measured by the Jaccard coefficient — compared to the reverse arrangement. Prior to being passed to the network, all images were enhanced by the Hessian-based filter described in the following section.
 
+<figure style="text-align:center">
+  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%">
+    <iframe src="https://www.youtube.com/embed/q_FjroTTiWs" title="Manual FAZ grading process in ImageJ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%"></iframe>
+  </div>
+  <figcaption>The manual FAZ grading process performed in ImageJ by an expert grader. Each OCTA image is traced by hand to delineate the foveal avascular zone boundary, producing the ground-truth masks used to train and evaluate the segmentation model.</figcaption>
+</figure>
+
 ### Hessian Filter
 
 The Hessian filter analyzes the local second-order curvature of an image to detect and enhance tubular structures such as blood vessels, while suppressing blobs and flat backgrounds. We use the Frangi vesselness formulation {% cite Frangi1998 --file references %}, which scores each pixel by how well its local geometry matches a tube-like shape across multiple scales. For a full conceptual and mathematical treatment, see the [[Primer] Hessian Filter for Vessel Enhancement](/blog/2019/primer-hessian-filter/) post.
