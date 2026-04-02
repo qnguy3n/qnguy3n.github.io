@@ -1,6 +1,6 @@
 ---
 layout: page
-title: WEEG
+title: WEEG SSVEP game
 description: A portable, wireless 8-channel EEG system with SSVEP-based BCI game and real-time signal processing software
 img: assets/img/WEEG/FindPrincess_GUI.png
 importance: 1
