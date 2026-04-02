@@ -132,6 +132,53 @@ SMR-based BCI is highly subject-specific: users must learn to deliberately modul
 
 A subtler but critical problem arises when attempting to simultaneously use EEG for BCI control and for mental workload monitoring. The common EEG strategy for workload assessment, tracking changes in alpha and theta band power, overlaps considerably with the motor imagery signals used for BCI control. For instance, alpha desynchronization (ERD) occurs both during voluntary movement and during attentional engagement, making it extremely difficult to separate the two sources. This overlap motivates the use of a complementary modality such as **fNIRS**, which senses a physiologically distinct process.
 
+The following videos document the end-to-end BCI training procedure from my Bachelor's thesis experiments at the Biosignal and Medical Imaging Processing Lab, Biomedical Engineering School, International University. They walk through each step of a full SMR-BCI session, from hardware setup to real-world device control.
+
+**Step 1: Checking Electrode Offset.** Before any recording, every electrode's contact quality is verified in Biosemi's ActiveView software. Each electrode has an offset voltage that reflects the quality of the scalp-electrode junction. High offset values indicate poor contact, which translates directly into noise on the EEG trace. This step is not optional: a single bad electrode can corrupt neighboring channels and make the calibration data unusable. Hardware: Biosemi ActiveTwo; Software: ActiveView and BCI2000.
+
+<figure style="text-align:center">
+  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%">
+    <iframe src="https://www.youtube.com/embed/vUFvj1DRLwU" title="BCI Training Part 1: Checking Electrode Offset" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%"></iframe>
+  </div>
+  <figcaption><b>Video 1:</b> Checking electrode offset. Each electrode's contact quality is inspected in ActiveView before recording begins. Electrodes with high offset are flagged for correction.</figcaption>
+</figure>
+
+**Step 2: Correcting Noisy Electrodes.** Any electrodes flagged in Step 1 are corrected before proceeding. This typically involves injecting additional conductive gel into the electrode cup, pressing it more firmly against the scalp, or repositioning it slightly to improve scalp contact. The process is repeated until all channels fall within acceptable offset limits.
+
+<figure style="text-align:center">
+  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%">
+    <iframe src="https://www.youtube.com/embed/9PYFiUg5f4Q" title="BCI Training Part 2: Correcting Noisy Electrodes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%"></iframe>
+  </div>
+  <figcaption><b>Video 2:</b> Correcting noisy electrodes. Channels with poor scalp contact are re-prepared with conductive gel until all offsets meet the recording threshold.</figcaption>
+</figure>
+
+**Step 3: Calibration via Imaginary Movement.** With clean signals confirmed, the user performs motor imagery tasks while EEG is recorded without feedback. BCI2000 then computes spectral features across all channels and generates coefficient-of-determination ($$r^2$$) maps to identify which electrode locations and frequency bands best separate the two imagined movement classes. This calibration determines the spatial and spectral parameters of the classifier that will drive the BCI in subsequent sessions.
+
+<figure style="text-align:center">
+  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%">
+    <iframe src="https://www.youtube.com/embed/4WT7kNRmRrg" title="BCI Training Part 3: Imaginary Movement Calibration" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%"></iframe>
+  </div>
+  <figcaption><b>Video 3:</b> Calibration phase. The user performs motor imagery in response to cues while EEG is recorded. BCI2000 analyzes the data to select the optimal channels, frequency bands, and imagery tasks for that individual.</figcaption>
+</figure>
+
+**Step 4: Cursor Task (Closed-Loop Feedback Training).** With the classifier configured, the user enters the closed-loop feedback phase. Imagined hand movements are decoded in real time by BCI2000 and mapped to the vertical position of a cursor moving across the screen. The user must guide the cursor to hit a target on the right side. This neurofeedback loop is the core training mechanism through which users gradually learn to modulate their own mu and beta rhythms with sufficient precision for reliable control.
+
+<figure style="text-align:center">
+  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%">
+    <iframe src="https://www.youtube.com/embed/WjnzgmkU2P8" title="BCI Training Part 4: Cursor Task" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%"></iframe>
+  </div>
+  <figcaption><b>Video 4:</b> Closed-loop cursor task. The user's motor imagery signals are decoded in real time by BCI2000 and used to control cursor height. Repeated practice across sessions builds the user's ability to voluntarily modulate their sensorimotor rhythms.</figcaption>
+</figure>
+
+**Step 5: Real-World Device Control.** The final stage demonstrates the end goal of BCI training: controlling a physical device by thought alone. A Hexbug robot was hacked and interfaced with the BCI system. The trained user attempted to steer the robot through circles drawn on a table using only motor imagery, with no physical input.
+
+<figure style="text-align:center">
+  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%">
+    <iframe src="https://www.youtube.com/embed/GXhypvG0PKU" title="BCI Training Part 5: Real-World Robot Control" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%"></iframe>
+  </div>
+  <figcaption><b>Video 5:</b> Real-world device control. The trained user controls a Hexbug robot using motor imagery alone, navigating it through target circles on a table. The robot was directly interfaced with the BCI output.</figcaption>
+</figure>
+
 ---
 
 ## Summary
