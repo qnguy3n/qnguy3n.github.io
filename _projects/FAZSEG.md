@@ -83,6 +83,12 @@ In this study we use the Distance Regularized Level Set Evolution (DRLSE) formul
   <figcaption><b>Figure 3:</b> Level Set evolution on our retinal OCT-A data, showing the contour converging to the FAZ boundary.</figcaption>
 </figure>
 
+<figure style=”text-align:center”>
+  <div style=”position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%”>
+    <iframe src=”https://www.youtube.com/embed/amzJiJf-R0I” title=”Level Set method demonstration” frameborder=”0” allow=”accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture” allowfullscreen style=”position:absolute; top:0; left:0; width:100%; height:100%”></iframe>
+  </div>
+  <figcaption>Demonstration of how the Level Set method works: an initial contour evolves by minimizing an energy functional, expanding or contracting until it converges to the target boundary. The DRLSE formulation used in this project adds a regularization term that keeps the level set function close to a signed distance function, removing the need for re-initialization.</figcaption>
+</figure>
 
 ### Evaluation
 #### Jaccard Score
