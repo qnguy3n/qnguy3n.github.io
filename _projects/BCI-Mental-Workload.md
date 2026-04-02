@@ -98,11 +98,22 @@ After calibration, subjects used imagined hand movement to control the vertical 
 
 Task difficulty was manipulated by the number of possible target positions per trial:
 
-| Level | Possible targets | Approximate chance level |
-|---|---|---|
-| 1 | 3 | 33% |
-| 2 | 5 | 20% |
-| 3 | 8 | 12.5% |
+<figure>
+<table style="border-collapse:collapse; width:100%">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th style="text-align:center">Level</th>
+      <th style="text-align:center">Possible targets</th>
+      <th style="text-align:center">Approximate chance level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="text-align:center">1</td><td style="text-align:center">3</td><td style="text-align:center">33%</td></tr>
+    <tr><td style="text-align:center">2</td><td style="text-align:center">5</td><td style="text-align:center">20%</td></tr>
+    <tr style="border-bottom:2px solid"><td style="text-align:center">3</td><td style="text-align:center">8</td><td style="text-align:center">12.5%</td></tr>
+  </tbody>
+</table>
+</figure>
 
 More targets means a smaller vertical window per target, requiring finer cursor control and, presumably, greater cognitive effort. Each subject completed 4 sessions spaced 5-7 days apart. After each session, subjects completed the **NASA Task Load Index (NASA-TLX)** {% cite Hart1988 --file references %} to provide subjective workload ratings.
 
@@ -137,11 +148,23 @@ This indicates that simple motor imagery, in the absence of feedback or performa
 
 NASA-TLX Mental Demand scores confirmed that subjects experienced the three difficulty levels as distinct (F = 35.58, p < 0.001):
 
-| Level | Mean Mental Demand | Std |
-|---|---|---|
-| 1 (3 targets) | 30.0 | 13.6 |
-| 2 (5 targets) | 59.4 | 11.8 |
-| 3 (8 targets) | 85.3 | 16.7 |
+<figure id="tab-nasatlx">
+<table style="border-collapse:collapse; width:100%">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th>Level</th>
+      <th style="text-align:center">Mean Mental Demand</th>
+      <th style="text-align:center">Std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1 (3 targets)</td><td style="text-align:center">30.0</td><td style="text-align:center">13.6</td></tr>
+    <tr><td>2 (5 targets)</td><td style="text-align:center">59.4</td><td style="text-align:center">11.8</td></tr>
+    <tr style="border-bottom:2px solid"><td>3 (8 targets)</td><td style="text-align:center">85.3</td><td style="text-align:center">16.7</td></tr>
+  </tbody>
+</table>
+<figcaption style="text-align:center; margin-top:0.5em"><b>Table 1:</b> NASA-TLX Mental Demand scores (0–100 scale) across difficulty levels. One-way ANOVA: F = 35.58, p &lt; 0.001.</figcaption>
+</figure>
 
 <figure id="fig-nasatlx" style="text-align:center">
   <img src="/assets/img/bci-mwl/results_nstlx_study2.png" alt="NASA-TLX across difficulty levels" style="width:50%">
@@ -152,11 +175,24 @@ NASA-TLX Mental Demand scores confirmed that subjects experienced the three diff
 
 Accuracy decreased significantly as the number of possible targets increased (F = 18.378, p < 0.001). However, absolute accuracy was close to or only marginally above chance in all conditions, reflecting the early stage of training.
 
-| Level | Absolute Accuracy (%) | Chance Level (%) | Relative Accuracy |
-|---|---|---|---|
-| 1 | 36.85 | 33.3 | 3.52 |
-| 2 | 22.32 | 20.0 | 2.32 |
-| 3 | 16.38 | 12.5 | 3.88 |
+<figure id="tab-accuracy">
+<table style="border-collapse:collapse; width:100%">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th>Level</th>
+      <th style="text-align:center">Absolute Accuracy (%)</th>
+      <th style="text-align:center">Chance Level (%)</th>
+      <th style="text-align:center">Relative Accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td style="text-align:center">36.85</td><td style="text-align:center">33.3</td><td style="text-align:center">3.52</td></tr>
+    <tr><td>2</td><td style="text-align:center">22.32</td><td style="text-align:center">20.0</td><td style="text-align:center">2.32</td></tr>
+    <tr style="border-bottom:2px solid"><td>3</td><td style="text-align:center">16.38</td><td style="text-align:center">12.5</td><td style="text-align:center">3.88</td></tr>
+  </tbody>
+</table>
+<figcaption style="text-align:center; margin-top:0.5em"><b>Table 2:</b> Task accuracy across difficulty levels. One-way ANOVA: F = 18.378, p &lt; 0.001.</figcaption>
+</figure>
 
 <figure style="text-align:center">
   <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap">
@@ -185,11 +221,23 @@ The group-averaged hemodynamic response across all subjects, sessions, and trial
 
 Mean oxygenation values across difficulty levels:
 
-| Level | Mean Oxygenation | Std |
-|---|---|---|
-| 1 | -0.0012 | 0.00601 |
-| 2 | -0.0041 | 0.00667 |
-| 3 | -0.0015 | 0.00673 |
+<figure id="tab-oxygenation">
+<table style="border-collapse:collapse; width:100%">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th>Level</th>
+      <th style="text-align:center">Mean Oxygenation</th>
+      <th style="text-align:center">Std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td style="text-align:center">-0.0012</td><td style="text-align:center">0.00601</td></tr>
+    <tr><td>2</td><td style="text-align:center">-0.0041</td><td style="text-align:center">0.00667</td></tr>
+    <tr style="border-bottom:2px solid"><td>3</td><td style="text-align:center">-0.0015</td><td style="text-align:center">0.00673</td></tr>
+  </tbody>
+</table>
+<figcaption style="text-align:center; margin-top:0.5em"><b>Table 3:</b> Group-averaged oxygenation change (µM·cm) across difficulty levels.</figcaption>
+</figure>
 
 **Non-monotonic response at peak difficulty.** Oxygenation was most negative at Level 2, with a partial rebound at Level 3. The typical finding in the MWL literature is a monotonic relationship between difficulty and hemodynamic response. The rebound at Level 3 is consistent with findings by Izzetoglu et al. {% cite Izzetoglu2004 --file references %} in air warfare simulations, where oxygenation dropped at the most demanding condition due to participant disengagement once the task exceeded their performance ceiling. We hypothesize the same mechanism applies here: subjects mentally disengaged at Level 3 because its difficulty was far beyond their current skill level at this early training stage.
 
@@ -219,13 +267,24 @@ A significant change in oxygenation was found across sessions for **Level 1 only
 
 This is the sharpest finding in the study: **fNIRS detected early-stage learning that NASA-TLX could not**. In Level 1, oxygenation became less negative across sessions as subjects gained control, mirroring the accuracy improvement. Subjective workload ratings showed none of this.
 
-Accuracy table across sessions:
-
-| Session | Level 1 Mean (%) | Level 2 Mean (%) | Level 3 Mean (%) |
-|---|---|---|---|
-| 1 | 29.00 | 20.75 | 17.25 |
-| 2 | 40.33 | 24.63 | 12.44 |
-| 3 | 41.22 | 21.67 | 19.56 |
+<figure id="tab-accuracy-sessions">
+<table style="border-collapse:collapse; width:100%">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th style="text-align:center">Session</th>
+      <th style="text-align:center">Level 1 Mean (%)</th>
+      <th style="text-align:center">Level 2 Mean (%)</th>
+      <th style="text-align:center">Level 3 Mean (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="text-align:center">1</td><td style="text-align:center">29.00</td><td style="text-align:center">20.75</td><td style="text-align:center">17.25</td></tr>
+    <tr><td style="text-align:center">2</td><td style="text-align:center">40.33</td><td style="text-align:center">24.63</td><td style="text-align:center">12.44</td></tr>
+    <tr style="border-bottom:2px solid"><td style="text-align:center">3</td><td style="text-align:center">41.22</td><td style="text-align:center">21.67</td><td style="text-align:center">19.56</td></tr>
+  </tbody>
+</table>
+<figcaption style="text-align:center; margin-top:0.5em"><b>Table 4:</b> Mean accuracy (%) per difficulty level across training sessions. Level 1 showed notable improvement from session 1 to session 2; Levels 2 and 3 remained stable.</figcaption>
+</figure>
 
 #### Individual Analysis: Naive Subjects
 

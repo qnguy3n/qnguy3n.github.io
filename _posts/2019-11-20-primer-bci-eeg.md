@@ -39,13 +39,25 @@ Odd numbers indicate the left hemisphere, even numbers the right, and the suffix
 
 Raw EEG is decomposed into frequency bands that correlate with distinct cognitive and physiological states:
 
-| Band | Range (Hz) | Functional correlates |
-|---|---|---|
-| Delta | 0.5 – 4 | Deep sleep, pathological states |
-| Theta | 4 – 8 | Drowsiness, memory encoding |
-| Alpha | 8 – 12 | Relaxed wakefulness, visual idling |
-| Beta | 12 – 30 | Active thinking, motor control |
-| Gamma | > 30 | High-level cognitive processing |
+<figure>
+<table style="border-collapse:collapse; width:100%">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th>Band</th>
+      <th style="text-align:center">Range (Hz)</th>
+      <th>Functional correlates</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Delta</td><td style="text-align:center">0.5 – 4</td><td>Deep sleep, pathological states</td></tr>
+    <tr><td>Theta</td><td style="text-align:center">4 – 8</td><td>Drowsiness, memory encoding</td></tr>
+    <tr><td>Alpha</td><td style="text-align:center">8 – 12</td><td>Relaxed wakefulness, visual idling</td></tr>
+    <tr><td>Beta</td><td style="text-align:center">12 – 30</td><td>Active thinking, motor control</td></tr>
+    <tr style="border-bottom:2px solid"><td>Gamma</td><td style="text-align:center">&gt; 30</td><td>High-level cognitive processing</td></tr>
+  </tbody>
+</table>
+<figcaption style="text-align:center; margin-top:0.5em"><b>Table 1:</b> EEG frequency bands and their primary functional correlates.</figcaption>
+</figure>
 
 BCI research primarily exploits the alpha and beta bands over sensorimotor areas, though all bands carry diagnostic information.
 
@@ -124,11 +136,25 @@ A subtler but critical problem arises when attempting to simultaneously use EEG 
 
 ## Summary
 
-| Paradigm | Signal type | Electrode site | Training | Key feature |
-|---|---|---|---|---|
-| Alpha waves | Oscillatory | Occipital | Minimal | Power in 8-12 Hz |
-| P300 | Event-related potential | Central / parietal | None | ~300 ms positive deflection |
-| SSVEP | Steady-state oscillation | Occipital | None | Frequency lock-in |
-| Motor imagery | Oscillatory (ERD/ERS) | Central (C3, C4) | Extensive | Mu/beta power suppression |
+<figure>
+<table style="border-collapse:collapse; width:100%">
+  <thead>
+    <tr style="border-top:2px solid; border-bottom:1px solid">
+      <th>Paradigm</th>
+      <th>Signal type</th>
+      <th style="text-align:center">Electrode site</th>
+      <th style="text-align:center">Training needed</th>
+      <th>Key feature</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Alpha waves</td><td>Oscillatory</td><td style="text-align:center">Occipital</td><td style="text-align:center">Minimal</td><td>Power in 8–12 Hz</td></tr>
+    <tr><td>P300</td><td>Event-related potential</td><td style="text-align:center">Central / parietal</td><td style="text-align:center">None</td><td>~300 ms positive deflection</td></tr>
+    <tr><td>SSVEP</td><td>Steady-state oscillation</td><td style="text-align:center">Occipital</td><td style="text-align:center">None</td><td>Frequency lock-in</td></tr>
+    <tr style="border-bottom:2px solid"><td>Motor imagery</td><td>Oscillatory (ERD/ERS)</td><td style="text-align:center">Central (C3, C4)</td><td style="text-align:center">Extensive</td><td>Mu/beta power suppression</td></tr>
+  </tbody>
+</table>
+<figcaption style="text-align:center; margin-top:0.5em"><b>Table 2:</b> Comparison of the four main EEG-based BCI paradigms.</figcaption>
+</figure>
 
 Each paradigm exploits a different feature of the EEG signal. The choice of paradigm determines training requirements, achievable information transfer rate, and suitability for a given clinical or engineering application.
