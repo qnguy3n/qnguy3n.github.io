@@ -65,6 +65,12 @@ The online GUI connects to the WEEG device over Bluetooth or serial, streams all
   <figcaption><b>Figure 4:</b> The online EEG recording and processing GUI. The top row shows live waveforms for two user-selected channels; the lower panels display real-time spectral density and signal quality indicators.</figcaption>
 </figure>
 
+---
+
+## My Contribution: Offline Analysis, SSVEP BCI Game, and Signal Transmission
+
+My role was to build the offline analysis tooling, the BCI actuator, and the communication infrastructure that tied the EEG system to it.
+
 ### Offline Spectral Analysis Tool
 
 The offline tool is designed for post-hoc exploration of recorded sessions in the frequency domain. The recommended workflow starts with a full-session spectrogram to get a broad view of frequency content over time, then zooms into individual trial windows to inspect how the spectrum responds to stimuli. Event labels are overlaid on the spectrogram so the user can correlate neural responses to experimental conditions.
@@ -75,12 +81,6 @@ The tool ingests `.mat` files in EEGLAB format (an `ALLEEG` structure with `data
   <img src="/assets/img/WEEG/offline_simulatedSpectrogram.png" alt="Offline spectrogram" style="width:80%">
   <figcaption><b>Figure 5:</b> Offline spectral analysis output. The spectrogram shows frequency content across the full recording, with event markers overlaid to identify SSVEP responses at the stimulus frequencies.</figcaption>
 </figure>
-
----
-
-## My Contribution: SSVEP BCI Game and Signal Transmission
-
-My role was to build the BCI actuator and the communication infrastructure that tied the EEG system to it.
 
 ### Background: SSVEP
 
