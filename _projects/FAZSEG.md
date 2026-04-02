@@ -79,7 +79,9 @@ Originally introduced by Osher and Sethian {% cite Osher1988 --file references %
 In this study we use the Distance Regularized Level Set Evolution (DRLSE) formulation {% cite Li2010 --file references %}, which augments the standard energy functional with a regularization term that penalizes deviations of $\phi$ from a signed distance function. This eliminates the need for periodic re-initialization — a costly and numerically error-prone step required by classical level set methods — and permits a broader and more robust class of initializations. To automate the method, we develop an intensity-based heuristic to place the initial contour, and then run the DRLSE evolution on Hessian-filtered images to identify the FAZ boundary. For a full conceptual and mathematical treatment, see the [[Primer] Level Set Methods for Image Segmentation](/blog/2019/primer-level-set/) post.
 
 <figure id=”fig-levelset-demo” style=”text-align:center”>
-  <img src=”/assets/img/FAZSEG/demo.gif” alt=”Level Set evolution on retinal OCT-A data” style=”width:60%”>
+  <video autoplay loop muted playsinline style=”width:60%”>
+    <source src=”/assets/img/FAZSEG/demo.mp4” type=”video/mp4”>
+  </video>
   <figcaption><b>Figure 3:</b> Level Set evolution on our retinal OCT-A data, showing the contour converging to the FAZ boundary.</figcaption>
 </figure>
 
