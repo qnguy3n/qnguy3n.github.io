@@ -22,11 +22,25 @@ Sensorimotor rhythm (SMR)-based brain-computer interfaces (BCIs) give paralyzed 
 
 A central but underappreciated problem in this training is **mental workload**. Several reviews have noted that sustaining and manipulating motor imagery can be extremely demanding, especially for disabled users {% cite Yuan2014 --file references %}. Yet most attempts to quantify this burden have relied on post-hoc subjective surveys {% cite Felton2012 --file references %}, which are coarse, retrospective, and unsuitable for real-time adaptive systems. Ideally, a training environment would monitor the user's cognitive state continuously and adapt task difficulty to keep the user in an optimal engagement zone, neither bored at levels below their skill nor overwhelmed above it, following the Yerkes-Dodson curve.
 
+<figure style="text-align:center">
+  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%">
+    <iframe src="https://www.youtube.com/embed/WjnzgmkU2P8" title="User during BCI Cursor Task training" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%"></iframe>
+  </div>
+  <figcaption>A user during BCI cursor task training, learning to modulate their EEG signals through motor imagery to control an on-screen cursor.</figcaption>
+</figure>
+
 Achieving that requires an objective, real-time measure of mental workload that does not interfere with the EEG control signal. As discussed in the [[Primer] BCI Using EEG](/blog/2019/primer-bci-eeg/) companion post, the EEG features used for motor imagery classification (mu and beta band power modulations, ERD/ERS) overlap substantially with the EEG features used for workload assessment (alpha and theta power changes), making it impractical to use EEG for both purposes simultaneously on the same recording.
 
 This project investigates whether **functional near-infrared spectroscopy (fNIRS)** over the **prefrontal cortex (PFC)** can serve as that workload monitor {% cite Girouard2009 Sassaroli2008 Solovey2011 --file references %}. Because fNIRS measures hemodynamic changes via optical absorption, it is spectrally and spatially orthogonal to the EEG motor signals, making it a natural complementary modality {% cite Villringer1997 --file references %}. For the underlying biophysics and signal processing of fNIRS, see the [[Primer] fNIRS for Brain Sensing](/blog/2019/primer-bci-fnirs/) companion post.
 
 To my knowledge, this is the first study to evaluate fNIRS for mental workload monitoring specifically during SMR-based BCI training.
+
+<figure style="text-align:center">
+  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%">
+    <iframe src="https://www.youtube.com/embed/GXhypvG0PKU" title="Trained BCI user controlling a robot via motor imagery" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%"></iframe>
+  </div>
+  <figcaption>A trained BCI user controlling a small robot using motor imagery signals alone. The robot was hacked and interfaced with the BCI system for this demonstration.</figcaption>
+</figure>
 
 ---
 
