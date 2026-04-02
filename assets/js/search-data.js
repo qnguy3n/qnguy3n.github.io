@@ -70,6 +70,28 @@ ninja.data = [{
             window.location.href = "/blog/2019/intro-to-bci/";
           
         },
+      },{id: "post-primer-functional-near-infrared-spectroscopy-fnirs-for-brain-sensing",
+        
+          title: "[Primer] Functional Near-Infrared Spectroscopy (fNIRS) for Brain Sensing",
+        
+        description: "Biophysics, signal quantification, and mental workload applications of fNIRS as a non-invasive brain imaging tool.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2019/primer-bci-fnirs/";
+          
+        },
+      },{id: "post-primer-brain-computer-interfaces-using-eeg",
+        
+          title: "[Primer] Brain-Computer Interfaces Using EEG",
+        
+        description: "A technical introduction to electroencephalography as the sensing modality in brain-computer interfaces, covering signal types, paradigms, and key computational concepts.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2019/primer-bci-eeg/";
+          
+        },
       },{id: "post-primer-level-set-methods-for-image-segmentation",
         
           title: "[Primer] Level Set Methods for Image Segmentation",
@@ -141,7 +163,12 @@ ninja.data = [{
           section: "News",},{id: "news-conference-presented-at-arvo-2025-salt-lake-city-utah",
           title: '[Conference] Presented at ARVO 2025, Salt Lake city, Utah',
           description: "",
-          section: "News",},{id: "projects-eyenote",
+          section: "News",},{id: "projects-bci-mental-workload",
+          title: 'BCI Mental Workload',
+          description: "Monitoring mental workload during sensorimotor rhythm BCI training using functional near-infrared spectroscopy over the prefrontal cortex",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/BCI-Mental-Workload/";
+            },},{id: "projects-eyenote",
           title: 'EyeNote',
           description: "Clinical Information Extraction for Ophthalmology",
           section: "Projects",handler: () => {
