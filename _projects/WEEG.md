@@ -13,7 +13,7 @@ _styles: >
   }
 ---
 
-The WEEG system was designed and built by [Bob Vo](https://github.com/bobvo23), a senior Biomedical Engineering student at International University (Vietnam National University HCMC), as his capstone project. My contribution was to put the system to work as a BCI: I built the SSVEP stimulus game that served as the actuator, and designed the TCP/IP signal transmission and synchronization layer connecting the MATLAB signal processing backend to the Python game frontend.
+The WEEG system was designed and built by [Bob Vo](https://github.com/bobvo23), a senior Biomedical Engineering student at International University (Vietnam National University HCMC), as his capstone project. My contribution was to put the system to work as a BCI: I built the offline spectral analysis tool, the SSVEP stimulus game that served as the actuator, and designed the TCP/IP signal transmission and synchronization layer connecting the MATLAB signal processing backend to the Python game frontend.
 
 The project reached the **Finals of the BES-SEC Design Award** at the 16th International Conference on Biomedical Engineering (ICBME 2016), Singapore, 2016.
 
