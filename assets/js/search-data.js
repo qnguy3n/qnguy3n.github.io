@@ -125,6 +125,17 @@ ninja.data = [{
             window.location.href = "/blog/2019/earliest-ai-medicine/";
           
         },
+      },{id: "post-primer-fractal-dimension-in-eeg-signal-analysis",
+        
+          title: "[Primer] Fractal Dimension in EEG Signal Analysis",
+        
+        description: "A technical introduction to fractal dimension as a measure of signal complexity, covering self-similarity, Higuchi&#39;s algorithm, and its application to EEG biosignal analysis.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/primer-fractal-dimension/";
+          
+        },
       },{id: "books-the-godfather",
           title: 'The Godfather',
           description: "",
@@ -178,11 +189,21 @@ ninja.data = [{
           description: "Automatic Foveal Avascular Zone Segmentation Using Hessian-Based Filter and U-Net Deep Learning Network",
           section: "Projects",handler: () => {
               window.location.href = "/projects/FAZSEG/";
+            },},{id: "projects-fractals-eeg-motor-imagery",
+          title: 'Fractals EEG Motor Imagery',
+          description: "Investigating fractal dimension as a non-linear correlate of event-related desynchronization in motor imagery EEG",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/FractalsEEG/";
             },},{id: "projects-mudari",
           title: 'MuDaRI',
           description: "Multilabel Dataset of Retinal Images for Detection of Multiple Ocular Diseases",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MuDaRI/";
+            },},{id: "projects-infrared-heart-rate-monitor",
+          title: 'Infrared Heart Rate Monitor',
+          description: "A photoplethysmography pulse sensor built from scratch with IR LED, photodiode, and analog signal conditioning, for a Biophotonics module project",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/PPG-Biophotonics/";
             },},{id: "projects-reasoning-engine",
           title: 'Reasoning Engine',
           description: "An AI-Assisted Differential Diagnosis System for Ophthalmology",
