@@ -142,7 +142,7 @@ ninja.data = [{
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
             },},{id: "news-we-received-rohto-award-sun-award-and-saigon-innovation-hub-award-tech-planter-demo-day-in-vietnam-2019",
-          title: 'We received Rohto Award, Sun* Award, and Saigon Innovation Hub Award, TECH PLANTER...',
+          title: 'We received Rohto Award, *Sun* Award*, and Saigon Innovation Hub Award, TECH PLANTER...',
           description: "",
           section: "News",},{id: "news-present-our-work-on-multilabel-dataset-for-retinal-disease-at-the-4th-asia-pacific-tele-ophthalmology-society-aptos-symposium-2019-chennai-india-read-more",
           title: 'Present our work on multilabel dataset for retinal disease at the 4th Asia...',
