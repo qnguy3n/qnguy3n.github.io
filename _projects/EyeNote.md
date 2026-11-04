@@ -25,7 +25,7 @@ _styles: |
 ### Foreword
 
 > This article documents the continuously evolving findings of my PhD thesis, which explores Natural Language Processing methods for clinical text in ophthalmology. It is not a finished work; the project continues to grow and accumulate new findings over time.
-{: .block-tip}
+> {: .block-tip}
 
 ### How does an ophthalmic clinical corpus look like?
 
@@ -172,6 +172,7 @@ A key part of the explanation lies in entity length. MEH clinical entities are s
 I suspect part of the issue is probably scale. EyeBERT was pre-trained on 700M words with a batch size of 8, compared to PubMedBERT's {% cite Gu2020 --file references %} 3.2 billion words and batch size of 8,192, and BioBERT's {% cite Lee2019 --file references %} 18 billion words. The sheer volume of biomedical text that foundation models are exposed to equips them with a richer understanding of complex morphology and clinical syntax than any single-institution corpus can provide, at least at the scale we were able to run. The low lexical diversity of the MEH corpus, as shown by its Heaps' law exponent of 0.625, compounds this: there simply is not enough new vocabulary for domain-specific pre-training to offer a decisive edge over a well-initialized foundation model.
 
 ### Automatic Extraction of Visual Acuity
+
 Around mid-2023, several reasons led me to the decision of building an end-to-end Visual Acuity (VA) extraction pipeline. First, in discussions with clinicians at MEH about what information they most wanted extracted from clinical narratives, VA came up consistently as the top request. As shown in the previous section, despite being the single most important variable in ophthalmology, roughly a third of VA measurements cannot be found in structured data, and the further back in time one looks, the harder VA is to recover. Without an automated tool, longitudinal studies have had to rely on painstaking manual extraction.
 
 The second motivation is a gap in how clinical NLP research is typically reported. Studies usually evaluate NER and relation extraction (RE) in isolation on benchmark datasets, but in practice the two must be chained together to produce a usable extraction pipeline. How the models interact, and how errors in one stage propagate to the other, is rarely studied.
@@ -363,4 +364,3 @@ The second thread is about what kind of model to use, and when. BERT-based model
 The third thread is about the emerging role of LLMs. For new extraction tasks where annotation is expensive, generative LLMs with prompt-based interfaces offer genuine value: no retraining, no annotated dataset, and reasonable accuracy across diverse clinical tasks. The OLUB results show that well-aligned models at the 20B scale can match or exceed specialized 70B models on structured extraction, and that the bottleneck is usually task formulation and document length, not model size. At the same time, the failure modes, unreliable JSON output, degradation on long aggregated records, high inference cost, mean that LLMs are better positioned as a complement to rather than a replacement for encoder-based extraction at scale.
 
 The broader ambition behind all of this is a clinical NLP infrastructure for ophthalmology that can be deployed routinely: pulling structured data from letters as they are written, enriching electronic health records retrospectively, and making large-scale phenotypic research from routine care data a realistic proposition rather than a heroic manual effort. Each chapter here is a step in that direction.
-

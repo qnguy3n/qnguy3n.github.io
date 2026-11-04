@@ -11,7 +11,7 @@ toc:
 ---
 
 > This primer provides the fNIRS background for the [BCI Mental Workload](/projects/BCI-Mental-Workload/) project, which used fNIRS over the prefrontal cortex to measure cognitive load during BCI training. See also the companion primer on [EEG-based BCI paradigms](/blog/2019/primer-bci-eeg/).
-{: .block-tip}
+> {: .block-tip}
 
 Functional Near-Infrared Spectroscopy (fNIRS) is a non-invasive neuroimaging technique that infers brain activity by measuring changes in the concentrations of oxygenated and deoxygenated hemoglobin in the cerebral cortex. It occupies a practical middle ground between EEG (high temporal resolution, low spatial resolution) and fMRI (high spatial resolution, but bulky, expensive, and intolerant of movement). fNIRS offers reasonable cortical coverage, genuine portability, and tolerance to motion, making it attractive for real-world and longitudinal cognitive monitoring.
 
@@ -22,6 +22,7 @@ Functional Near-Infrared Spectroscopy (fNIRS) is a non-invasive neuroimaging tec
 The foundation of fNIRS (and of fMRI's BOLD signal) is **neurovascular coupling**: the tight physiological link between neural activity and local cerebral blood flow. When neurons in a cortical region become active, their metabolic demand increases rapidly. The brain responds by locally dilating blood vessels to deliver more oxygenated blood, a process called the **hemodynamic response**. This vasodilation brings more oxyhemoglobin (HbO) into the activated region, and as oxygen is consumed, converts it to deoxyhemoglobin (Hb).
 
 The canonical pattern of cortical activation is therefore:
+
 - **Increase in [HbO]** (more oxygenated blood delivered)
 - **Decrease in [Hb]** (oxygen consumed and deoxygenated blood swept away)
 
@@ -55,6 +56,7 @@ In a non-scattering medium, the attenuation of light intensity follows the **Bee
 $$A = \log_{10} \frac{I_0}{I} = a \cdot c \cdot d$$
 
 where:
+
 - $$A$$ is light attenuation (optical density)
 - $$I_0$$ is incident light intensity, $$I$$ is transmitted intensity
 - $$a$$ ($$\mu\text{M}^{-1}\,\text{cm}^{-1}$$) is the molar extinction coefficient of the absorber
@@ -148,6 +150,7 @@ The mean amplitude of the hemodynamic response within the task window provides a
 **Mental workload (MWL)** is broadly defined as the ratio between task demands and available cognitive capacity. fNIRS over the PFC is well suited to MWL measurement because the PFC is heavily recruited during demanding cognitive tasks (working memory, attention, executive control), and its hemodynamic response is unaffected by motor activity in the sensorimotor cortex. This orthogonality to motor signals is a critical advantage when the primary task itself involves motor control, as in BCI training based on motor imagery.
 
 A large body of literature confirms that PFC oxygenation increases monotonically with cognitive task difficulty across a wide range of paradigms {% cite Girouard2009 Sassaroli2008 Solovey2011 Ayaz2012 --file references %}:
+
 - Arithmetic calculation and n-back working memory tasks
 - Attention-demanding visual search
 - Air traffic control and flight simulation

@@ -9,7 +9,7 @@ related_posts: false
 ---
 
 > This post explains the Hessian filter as used in the [FAZSEG](/projects/FAZSEG/) project, which applies it to enhance retinal microvasculature in OCT-A images before segmenting the Foveal Avascular Zone. See the project page for the specific parameters and results on real clinical data.
-{: .block-tip}
+> {: .block-tip}
 
 Hessian filtering is a feature extraction technique that analyzes the local second-order structure of an image. By calculating the second derivatives of image intensities, it determines the local curvature at every pixel. This makes it incredibly powerful for identifying continuous, tubular structures like blood vessels while ignoring uniform backgrounds or unstructured noise.
 
@@ -44,6 +44,6 @@ Where:
 
 Hessian-based filters are a staple in medical imaging pipelines, particularly in domains like ophthalmology for extracting the retinal vascular network from fundus images or OCT scans, for a few reasons:
 
-1. *Shape Specificity (Tubes vs. Blobs)*: The eigenvalue analysis inherently distinguishes linear vessels from spherical pathologies (like microaneurysms or hemorrhages) and flat backgrounds. The filter mathematically isolates and enhances only the "tubular" geometry.
-2. *Multi-Scale Detection*: Vascular networks contain thick main arteries and tiny capillary beds. Because the Hessian matrix is calculated using a Gaussian scale $\sigma$, the filter can be applied across a range of scales. The final output is simply the maximum vesselness response across all $\sigma$ values, allowing it to seamlessly enhance vessels of varying thicknesses simultaneously {% cite Frangi1998 --file references %}.
-3. *Illumination Robustness*: Because it relies on second-order derivatives, the filter is highly robust to smooth, gradual changes in background illumination {% cite Survarachakan2021 --file references %}. This is vital for clinical imaging where uneven lighting, corneal reflections, or low contrast are common artifacts.
+1. _Shape Specificity (Tubes vs. Blobs)_: The eigenvalue analysis inherently distinguishes linear vessels from spherical pathologies (like microaneurysms or hemorrhages) and flat backgrounds. The filter mathematically isolates and enhances only the "tubular" geometry.
+2. _Multi-Scale Detection_: Vascular networks contain thick main arteries and tiny capillary beds. Because the Hessian matrix is calculated using a Gaussian scale $\sigma$, the filter can be applied across a range of scales. The final output is simply the maximum vesselness response across all $\sigma$ values, allowing it to seamlessly enhance vessels of varying thicknesses simultaneously {% cite Frangi1998 --file references %}.
+3. _Illumination Robustness_: Because it relies on second-order derivatives, the filter is highly robust to smooth, gradual changes in background illumination {% cite Survarachakan2021 --file references %}. This is vital for clinical imaging where uneven lighting, corneal reflections, or low contrast are common artifacts.

@@ -9,7 +9,6 @@ tags: BCI EEG ML signal-processing practice
 
 All code and data are available on GitHub: [qnguy3n/ml-for-bci](https://github.com/qnguy3n/ml-for-bci/)
 
-
 ---
 
 ## What is a Brain-Computer Interface?
@@ -19,6 +18,7 @@ A Brain-Computer Interface (BCI) is a system that creates a direct communication
 BCIs work by recording electrical activity from the brain (EEG), processing the signals, and translating patterns into commands. Applications range from assistive technology for paralyzed patients to gaming and neurofeedback.
 
 In this post, we walk through **two real experiments** from scratch:
+
 1. **Alpha waves** — detecting open vs. closed eyes
 2. **SSVEP** — controlling a device by looking at flickering stimuli
 
@@ -32,13 +32,13 @@ Electrodes are placed on the scalp following the **International 10-20 Electrode
 
 For both experiments, the electrode configuration is:
 
-| Position | Role |
-|---|---|
-| Left Mastoid | DRL (ground/bias) |
-| Right Mastoid | CH1− |
-| O2 | CH1+ |
-| O1 | CH2+ |
-| Oz | CH2− |
+| Position      | Role              |
+| ------------- | ----------------- |
+| Left Mastoid  | DRL (ground/bias) |
+| Right Mastoid | CH1−              |
+| O2            | CH1+              |
+| O1            | CH2+              |
+| Oz            | CH2−              |
 
 Occipital electrodes (O1, O2, Oz) are chosen because they sit over the **visual cortex** — the brain region most active during visual processing.
 
@@ -132,6 +132,7 @@ You will see a clear **peak around 8–12 Hz** in the closed-eye spectrum — th
 ### Feature Extraction
 
 For classification, we extract two features from each 1-second window:
+
 - **Feature 1:** Maximum spectral power in the 8–13 Hz band
 - **Feature 2:** Signal-to-noise ratio (SNR) in the 8–13 Hz band
 
@@ -219,6 +220,7 @@ Same electrode placement as Experiment 1 (Oz, O1, O2 over the visual cortex).
 #### Pre-processing
 
 Same filtering pipeline as alpha waves:
+
 - **High-pass at 0.3 Hz** — remove DC drift
 - **Low-pass at 43 Hz** — remove high-frequency noise
 
@@ -265,19 +267,18 @@ Source code is in `tools/SSVEP_BCIGame/FindPrincess.py`.
 
 ## Key Takeaways
 
-| | Alpha Waves | SSVEP |
-|---|---|---|
-| **Paradigm** | Internal state (eyes open/closed) | Exogenous (visual stimulus) |
-| **Frequency band** | 8–12 Hz | Stimulus frequency + harmonics |
-| **Training needed** | Yes (calibration run) | Minimal |
-| **Use case** | Fatigue/drowsiness detection | Navigation, selection |
-| **Complexity** | Low | Low–Medium |
+|                     | Alpha Waves                       | SSVEP                          |
+| ------------------- | --------------------------------- | ------------------------------ |
+| **Paradigm**        | Internal state (eyes open/closed) | Exogenous (visual stimulus)    |
+| **Frequency band**  | 8–12 Hz                           | Stimulus frequency + harmonics |
+| **Training needed** | Yes (calibration run)             | Minimal                        |
+| **Use case**        | Fatigue/drowsiness detection      | Navigation, selection          |
+| **Complexity**      | Low                               | Low–Medium                     |
 
 Both paradigms demonstrate the core BCI pipeline:
 
 **Record → Filter → Extract Features → Classify → Act**
 
-
 ---
 
-*Material developed for BM074IU — Brain Computer Interface, International University, VNU-HCMC, Fall 2019.*
+_Material developed for BM074IU — Brain Computer Interface, International University, VNU-HCMC, Fall 2019._

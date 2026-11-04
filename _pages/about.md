@@ -33,7 +33,7 @@ Put your address / P.O. box / other info right below your picture. You can also 
 
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
 
-*Applied AI Researcher* is probably the best description I can come up with for myself, although it isn't exactly how I feel. If I added a dash of 'clinical' to it, it would be closer to the mark, but still not quite right either. Perhaps the most apt way to describe myself and my line of work is simply: using computers to (1) understand and, from that understanding, (2) improve **human well-being**. 
+_Applied AI Researcher_ is probably the best description I can come up with for myself, although it isn't exactly how I feel. If I added a dash of 'clinical' to it, it would be closer to the mark, but still not quite right either. Perhaps the most apt way to describe myself and my line of work is simply: using computers to (1) understand and, from that understanding, (2) improve **human well-being**.
 
 If I had 48 or 72 hours in a day, I would love to extend that mission to all life forms on Earth and beyond. But for obvious reasons, I have to settle for only humans for now. If I can advance that cause even just a little, it will be a life well lived.
 

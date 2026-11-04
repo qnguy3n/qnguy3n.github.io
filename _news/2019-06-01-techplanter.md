@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-We received **Rohto Award**, **Sun* Award**, and **Saigon Innovation Hub Award**, TECH PLANTER DEMO DAY in Vietnam 2019.
+We received **Rohto Award**, _*Sun* Award_*, and **Saigon Innovation Hub Award**, TECH PLANTER DEMO DAY in Vietnam 2019.

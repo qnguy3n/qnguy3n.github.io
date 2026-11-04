@@ -7,7 +7,8 @@ tags: ML, FedAvg, FL, analysis, reflection
 # categories: sample-posts
 related_posts: false
 ---
-When writing up the manuscript for this [paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919464), one question kept nagging me: **Is *Federated Averaging (FedAvg)* essentially just *Centralised Gradient Descent (CGD)* in disguise?** At the surface level, they look almost identical.
+
+When writing up the manuscript for this [paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919464), one question kept nagging me: **Is _Federated Averaging (FedAvg)_ essentially just _Centralised Gradient Descent (CGD)_ in disguise?** At the surface level, they look almost identical.
 
 In both settings, we are trying to minimise a global loss function $F(w)$ across $K$ distinct datasets, i.e. training a unified clinical model across disparate sites (e.g. hospitals).
 

@@ -9,7 +9,7 @@ related_posts: false
 ---
 
 > This post explains the Level Set method as used in the [FAZSEG](/projects/FAZSEG/) project, which applies DRLSE to segment the Foveal Avascular Zone boundary in retinal OCT-A images. See the project page for the specific implementation details and results on real clinical data.
-{: .block-tip}
+> {: .block-tip}
 
 The Level Set method is a numerical technique for tracking the evolution of curves and surfaces. Rather than explicitly tracking boundary points, it embeds the boundary as the zero contour of a higher-dimensional function, making it naturally capable of handling topological changes such as splits and merges.
 

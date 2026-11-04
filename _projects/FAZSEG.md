@@ -18,8 +18,8 @@ This work as been published at [8th International Conference on the Development 
 
 <!-- [Full text](https://drive.google.com/file/d/1owZMp2b_wBaOWNeudv_cxfOKU_Q8our-/view). -->
 
-
 ## Introduction
+
 Optical Coherence Tomography Angiography (OCTA) has emerged as a rapid, high-resolution, and non-invasive imaging modality for generating volumetric angiographic images. It is a highly promising tool for evaluating and detecting common retinal diseases, including age-related macular degeneration, diabetic macular edema, and choroidal neovascularization {% cite deCarlo2015 Virgili2015 Jia2014 --file references %}. A critical biomarker in assessing these conditions is the foveal avascular zone (FAZ), as its accurate extraction is vital for detecting vascular diseases that affect retinal microcirculation.
 
 Historically, researchers have relied on traditional computer vision algorithms from simple morphological algorithm {% cite Diaz2019 --file references %} to advanced active contours algorithm such as Generalized Gradient Vector Flow (GGVF) {% cite Lu2018 --file references %} or Level Set {% cite Lin2020 --file references %}, to segment the FAZ. However, these conventional techniques often struggle to adapt to complex anatomical variations and image noise. More recently, the field has shifted toward Deep Convolutional Neural Networks (DCNN) to automate FAZ segmentation. While these deep learning approaches show immense promise, their effectiveness and generalization across varied clinical datasets still require further investigation.
@@ -51,6 +51,7 @@ The two datasets were split as follows: 184 images from the JC dataset for train
 The Hessian filter analyzes the local second-order curvature of an image to detect and enhance tubular structures such as blood vessels, while suppressing blobs and flat backgrounds. We use the Frangi vesselness formulation {% cite Frangi1998 --file references %}, which scores each pixel by how well its local geometry matches a tube-like shape across multiple scales. For a full conceptual and mathematical treatment, see the [[Primer] Hessian Filter for Vessel Enhancement](/blog/2019/primer-hessian-filter/) post.
 
 #### Tuning the Scale - Practical Considerations for $\sigma$
+
 The most critical parameter when deploying the Frangi filter is the Gaussian scale, $\sigma$. Because the algorithm relies on Gaussian smoothing before calculating the Hessian matrix, the value of $\sigma$ directly corresponds to the radius of the tubular structures you intend to extract.
 
 When processing clinical data, in our case, isolating the microvasculature in OCTA scans, configuring $\sigma$ correctly is the difference between a clean extraction and a noisy mess. A small $\sigma$ (e.g., 0.5) sensitizes the filter to fine, delicate capillaries. A larger $\sigma$ (e.g., 2.5) shifts the focus to wider, primary vessels.
@@ -62,7 +63,6 @@ In practice, a single $\sigma$ is rarely sufficient. You must define a range ($\
   <figcaption><b>Figure 1:</b> Example of the Hessian-based filter applied to our retinal OCT-A data, with sigma values $\sigma$ range to be from 0.5 to 2.5</figcaption>
 </figure>
 
-
 ### U-Net
 
 Our segmentation model builds on the U-Net architecture {% cite Ronneberger2015 --file references %}, a fully convolutional encoder–decoder network originally developed for biomedical image segmentation. The key idea of U-Net is its symmetric structure: a contracting encoder path that progressively captures high-level semantic context, paired with an expanding decoder path that recovers spatial resolution through up-sampling, with skip connections bridging the two halves to preserve fine-grained boundary details.
@@ -70,7 +70,6 @@ Our segmentation model builds on the U-Net architecture {% cite Ronneberger2015 
 We depart from the original design by replacing the vanilla encoder with a SE-ResNeXt-50 backbone {% cite Hu2019 --file references %}. SE-ResNeXt-50 combines the grouped convolutions of ResNeXt with Squeeze-and-Excitation (SE) blocks, which recalibrate channel-wise feature responses by explicitly modelling interdependencies between channels. This allows the encoder to produce richer, more discriminative feature maps while remaining computationally tractable. The decoder branch is then redesigned to progressively up-sample these encoded features back to full resolution, producing the final binary FAZ segmentation mask. Although other backbone architectures were explored, SE-ResNeXt-50 consistently yielded the best segmentation performance in our experiments.
 
 The model was trained for 70 epochs with a batch size of 8, input resolution of 256 × 256, a learning rate of 0.0002, and the Adam optimizer.
-
 
 ### Level Set
 
@@ -93,6 +92,7 @@ In this study we use the Distance Regularized Level Set Evolution (DRLSE) formul
 </figure>
 
 ### Evaluation
+
 #### Jaccard Score
 
 The Jaccard index (also known as Intersection over Union, IoU) measures the overlap between the predicted segmentation mask $\hat{S}$ and the ground truth mask $S$:
@@ -110,6 +110,7 @@ $$FP = \frac{|\hat{S} \setminus S|}{|S|}, \qquad FN = \frac{|S \setminus \hat{S}
 A low FP indicates few spurious predictions; a low FN indicates good sensitivity to the full extent of the FAZ. Together with the Jaccard score, they provide a more complete picture of where a method tends to fail.
 
 ## Results
+
 Three configurations were evaluated: Hessian Filter + Level Set, U-Net alone, and the proposed Hessian Filter + U-Net pipeline. The first two serve as baselines — the Level Set baseline isolates the contribution of the deep learning component, while the standalone U-Net baseline quantifies the benefit of Hessian preprocessing. Quantitative results are reported in **Table 1**.
 
 <figure id="tab-results">
